@@ -9,11 +9,14 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div className="my-component">
-        <h3>Hello World!</h3>
+        <h3 className="exclusive">Hello World!</h3>
         <p className="repeated-class unique">1</p>
         <p className="repeated-class">2</p>
         <p className="repeated-class">3</p>
         <MyChild />
+        <ul>
+          <li>This is an li element</li>
+        </ul>
       </div>
     );
   }

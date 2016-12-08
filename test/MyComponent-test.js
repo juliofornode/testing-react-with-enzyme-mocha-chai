@@ -50,3 +50,34 @@ describe('Find methods (find, filter, at index, etc)', () => {
   });
 
 });
+
+describe('Contain methods (contains, equals, matches, etc)', () => {
+  let myWrapper;
+  beforeEach(() => {
+    myWrapper = shallow(<MyComponent />);
+  });
+
+  it('should contain a MyChild element', () => {
+    expect(myWrapper.contains(<MyChild />)).to.equal(true);
+  });
+
+  it('should contain the described p elements', () => {
+    expect(myWrapper.contains([
+      <p className="repeated-class unique">1</p>,
+      <p className="repeated-class">2</p>
+    ])).to.equal(true);
+  });
+
+  it('should have class my-component', () => {
+    expect(myWrapper.hasClass('my-component')).to.equal(true);
+  });
+
+  it('the h3 element should have the class exclusive', () => {
+    expect(myWrapper.find('h3').hasClass('exclusive')).to.equal(true);
+  });
+
+  it('the shallow copy has the type of div', () => {
+    expect(myWrapper.type()).to.equal('div');
+  });
+
+});
