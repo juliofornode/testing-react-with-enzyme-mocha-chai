@@ -5,6 +5,11 @@ class MyComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = { word: 'secret' };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(eventObject) {
+    this.setState({ word: eventObject.target.value });
   }
 
   render() {
@@ -19,10 +24,14 @@ class MyComponent extends React.Component {
           <li>This is an li element</li>
           <li>This is an li element</li>
         </ul>
+        <input onChange={this.handleChange} type="text"></input>
       </div>
     );
   }
 }
 
+MyComponent.propTypes = {
+  name: React.PropTypes.string
+};
 
 export default MyComponent;

@@ -127,3 +127,15 @@ describe('State and props methods', () => {
   });
 
 });
+
+describe('Simulate events', () => {
+  let myWrapper;
+  beforeEach(() => {
+    myWrapper = shallow(<MyComponent />);
+  });
+  it('on input change, it should update state', () => {
+    expect(myWrapper.state('word')).to.equal('secret');
+    myWrapper.find('input').simulate('change', { target: { value: 'not secret' } });
+    expect(myWrapper.state('word')).to.equal('not secret');
+  });
+});
