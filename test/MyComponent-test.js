@@ -81,3 +81,21 @@ describe('Contain methods (contains, equals, matches, etc)', () => {
   });
 
 });
+
+describe('Children and parent methods', () => {
+  let myWrapper;
+
+  beforeEach(() => {
+    myWrapper = shallow(<MyComponent />);
+  });
+
+  it('the ul element has 2 children', () => {
+    expect(myWrapper.find('ul').children()).to.have.length(2);
+  });
+
+  it('the li element has ul as parent', () => {
+    expect(myWrapper.find('li').parent().is('ul')).to.equal(true);
+  });
+
+
+});

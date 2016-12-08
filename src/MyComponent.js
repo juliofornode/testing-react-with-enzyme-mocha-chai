@@ -16,6 +16,7 @@ class MyComponent extends React.Component {
         <MyChild />
         <ul>
           <li>This is an li element</li>
+          <li>This is an li element</li>
         </ul>
       </div>
     );
