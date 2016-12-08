@@ -111,3 +111,19 @@ describe('Cheerio Wrapper', () => {
   });
 
 });
+
+describe('State and props methods', () => {
+  let myWrapper;
+  beforeEach(() => {
+    myWrapper = shallow(<MyComponent name='Napoleon'/>);
+  });
+
+  it('should have the expected state', () => {
+    expect(myWrapper.state('word')).to.equal('secret');
+  });
+
+  it('the shallow component should have the expected prop', () => {
+    expect(myWrapper.prop('name')).to.equal('Napoleon');
+  });
+
+});
