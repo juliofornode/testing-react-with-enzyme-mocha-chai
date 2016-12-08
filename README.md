@@ -1,2 +1,1 @@
-# enzyme-example-mocha
-Example project with React + Enzyme + Mocha
+# Testing React with Enzyme, Mocha and Chai
