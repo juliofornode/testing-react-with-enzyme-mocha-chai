@@ -99,3 +99,15 @@ describe('Children and parent methods', () => {
 
 
 });
+
+describe('Cheerio Wrapper', () => {
+  let myWrapper;
+  beforeEach(() => {
+    myWrapper = shallow(<MyComponent />);
+  });
+
+  it('should find a h5 element inside a Cheerio Wraper', () => {
+    expect(myWrapper.render(MyChild).find('h5')).to.have.length(1);
+  });
+
+});

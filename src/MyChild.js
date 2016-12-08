@@ -2,7 +2,9 @@ import React from 'react';
 
 const MyChild = () => {
   return(
-    <div>This is MyChild component.</div>
+    <div>
+      <h5>This is MyChild component</h5>
+    </div>
   );
 };
 
