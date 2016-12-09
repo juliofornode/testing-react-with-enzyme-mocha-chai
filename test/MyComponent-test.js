@@ -15,127 +15,166 @@ describe('A suite', function() {
 });
 
 describe('Find methods (find, filter, at index, etc)', () => {
-  let myWrapper;
+  let myShallowWrapper;
+  let myDOMwrapper;
 
   beforeEach(() => {
-    myWrapper = shallow(<MyComponent />);
+    myShallowWrapper = shallow(<MyComponent />);
+    myDOMwrapper = mount(<MyComponent />);
   });
 
   it('should find a css class', () => {
-    expect(myWrapper.find('.my-component')).to.have.length(1);
+    expect(myShallowWrapper.find('.my-component')).to.have.length(1);
+    expect(myDOMwrapper.find('.my-component')).to.have.length(1);
   });
 
   it('should find that a css class occurs 3 times', () => {
-    expect(myWrapper.find('.repeated-class')).to.have.length(3);
+    expect(myShallowWrapper.find('.repeated-class')).to.have.length(3);
+    expect(myDOMwrapper.find('.repeated-class')).to.have.length(3);
   });
 
   it('should find a child component', () => {
-    expect(myWrapper.find(MyChild)).to.have.length(1);
+    expect(myShallowWrapper.find(MyChild)).to.have.length(1);
+    expect(myDOMwrapper.find(MyChild)).to.have.length(1);
   });
 
   it('should find a child component by name', () => {
-    expect(myWrapper.find('MyChild')).to.have.length(1);
+    expect(myShallowWrapper.find('MyChild')).to.have.length(1);
+    expect(myDOMwrapper.find('MyChild')).to.have.length(1);
   });
 
   it('should find the number of filtered items', () => {
-    expect(myWrapper.find('.repeated-class').filter('.unique')).to.have.length(1);
+    expect(myShallowWrapper.find('.repeated-class').filter('.unique')).to.have.length(1);
+    expect(myDOMwrapper.find('.repeated-class').filter('.unique')).to.have.length(1);
   });
 
   it('should find the number of negative-filetered items', () => {
-    expect(myWrapper.find('.repeated-class').not('.unique')).to.have.length(2);
+    expect(myShallowWrapper.find('.repeated-class').not('.unique')).to.have.length(2);
+    expect(myDOMwrapper.find('.repeated-class').not('.unique')).to.have.length(2);
   });
 
   it('should find the value of the first item', () => {
-    expect(myWrapper.find('MyChild').first()).to.have.length(1);
+    expect(myShallowWrapper.find('MyChild').first()).to.have.length(1);
+    expect(myDOMwrapper.find('MyChild').first()).to.have.length(1);
   });
 
 });
 
 describe('Contain methods (contains, equals, matches, etc)', () => {
-  let myWrapper;
+  let myShallowWrapper;
+  let myDOMwrapper;
+
   beforeEach(() => {
-    myWrapper = shallow(<MyComponent />);
+    myShallowWrapper = shallow(<MyComponent />);
+    myDOMwrapper = mount(<MyComponent />);
   });
 
   it('should contain a MyChild element', () => {
-    expect(myWrapper.contains(<MyChild />)).to.equal(true);
+    expect(myShallowWrapper.contains(<MyChild />)).to.equal(true);
+    expect(myDOMwrapper.contains(<MyChild />)).to.equal(true);
   });
 
   it('should contain the described p elements', () => {
-    expect(myWrapper.contains([
+    expect(myShallowWrapper.contains([
+      <p className="repeated-class unique">1</p>,
+      <p className="repeated-class">2</p>
+    ])).to.equal(true);
+    expect(myDOMwrapper.contains([
       <p className="repeated-class unique">1</p>,
       <p className="repeated-class">2</p>
     ])).to.equal(true);
   });
 
-  it('should have class my-component', () => {
-    expect(myWrapper.hasClass('my-component')).to.equal(true);
+  it('DIFFERENT BEHAVIOR: should have class my-component. Not working for DOM copy', () => {
+    expect(myShallowWrapper.hasClass('my-component')).to.equal(true);
+    //expect(myDOMwrapper.hasClass('my-component')).to.equal(true);
   });
 
   it('the h3 element should have the class exclusive', () => {
-    expect(myWrapper.find('h3').hasClass('exclusive')).to.equal(true);
+    expect(myShallowWrapper.find('h3').hasClass('exclusive')).to.equal(true);
+    expect(myDOMwrapper.find('h3').hasClass('exclusive')).to.equal(true);
   });
 
-  it('the shallow copy has the type of div', () => {
-    expect(myWrapper.type()).to.equal('div');
+  it('DIFFERENT BEHAVIOR: the shallow copy has the type of div, the DOM copy has a type of the component', () => {
+    expect(myShallowWrapper.type()).to.equal('div');
+    expect(myDOMwrapper.type()).to.equal(MyComponent);
   });
 
 });
 
 describe('Children and parent methods', () => {
-  let myWrapper;
+  let myShallowWrapper;
+  let myDOMwrapper;
 
   beforeEach(() => {
-    myWrapper = shallow(<MyComponent />);
+    myShallowWrapper = shallow(<MyComponent />);
+    myDOMwrapper = mount(<MyComponent />);
   });
 
   it('the ul element has 2 children', () => {
-    expect(myWrapper.find('ul').children()).to.have.length(2);
+    expect(myShallowWrapper.find('ul').children()).to.have.length(2);
+    expect(myDOMwrapper.find('ul').children()).to.have.length(2);
   });
 
   it('the li element has ul as parent', () => {
-    expect(myWrapper.find('li').parent().is('ul')).to.equal(true);
+    expect(myShallowWrapper.find('li').parent().is('ul')).to.equal(true);
+    expect(myDOMwrapper.find('li').parent().is('ul')).to.equal(true);
   });
 
 
 });
 
 describe('Cheerio Wrapper', () => {
-  let myWrapper;
+  let myShallowWrapper;
+  let myDOMwrapper;
+
   beforeEach(() => {
-    myWrapper = shallow(<MyComponent />);
+    myShallowWrapper = shallow(<MyComponent />);
+    myDOMwrapper = mount(<MyComponent />);
   });
 
   it('should find a h5 element inside a Cheerio Wraper', () => {
-    expect(myWrapper.render(MyChild).find('h5')).to.have.length(1);
+    expect(myShallowWrapper.render(MyChild).find('h5')).to.have.length(1);
+    expect(myDOMwrapper.render(MyChild).find('h5')).to.have.length(1);
   });
 
 });
 
 describe('State and props methods', () => {
-  let myWrapper;
+  let myShallowWrapper;
+  let myDOMwrapper;
+
   beforeEach(() => {
-    myWrapper = shallow(<MyComponent name='Napoleon'/>);
+    myShallowWrapper = shallow(<MyComponent name="Napoleon"/>);
+    myDOMwrapper = mount(<MyComponent name="Napoleon"/>);
   });
 
   it('should have the expected state', () => {
-    expect(myWrapper.state('word')).to.equal('secret');
+    expect(myShallowWrapper.state('word')).to.equal('secret');
+    expect(myDOMwrapper.state('word')).to.equal('secret');
   });
 
   it('the shallow component should have the expected prop', () => {
-    expect(myWrapper.prop('name')).to.equal('Napoleon');
+    expect(myShallowWrapper.prop('name')).to.equal('Napoleon');
+    expect(myDOMwrapper.prop('name')).to.equal('Napoleon');
   });
 
 });
 
 describe('Simulate events', () => {
-  let myWrapper;
+  let myShallowWrapper;
+  let myDOMwrapper;
+
   beforeEach(() => {
-    myWrapper = shallow(<MyComponent />);
+    myShallowWrapper = shallow(<MyComponent />);
+    myDOMwrapper = mount(<MyComponent />);
   });
   it('on input change, it should update state', () => {
-    expect(myWrapper.state('word')).to.equal('secret');
-    myWrapper.find('input').simulate('change', { target: { value: 'not secret' } });
-    expect(myWrapper.state('word')).to.equal('not secret');
+    expect(myShallowWrapper.state('word')).to.equal('secret');
+    myShallowWrapper.find('input').simulate('change', { target: { value: 'not secret' } });
+    expect(myShallowWrapper.state('word')).to.equal('not secret');
+    expect(myDOMwrapper.state('word')).to.equal('secret');
+    myDOMwrapper.find('input').simulate('change', { target: { value: 'not secret' } });
+    expect(myDOMwrapper.state('word')).to.equal('not secret');
   });
 });
