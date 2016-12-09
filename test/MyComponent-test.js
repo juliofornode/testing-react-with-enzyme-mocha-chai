@@ -85,9 +85,9 @@ describe('Contain methods (contains, equals, matches, etc)', () => {
     ])).to.equal(true);
   });
 
-  it('DIFFERENT BEHAVIOR: should have class my-component. Not working for DOM copy', () => {
+  it('DIFFERENT BEHAVIOR: should have class my-component. Different behavior for DOM copy', () => {
     expect(myShallowWrapper.hasClass('my-component')).to.equal(true);
-    //expect(myDOMwrapper.hasClass('my-component')).to.equal(true);
+    expect(myDOMwrapper.find('.my-component').hasClass('my-component')).to.equal(true);
   });
 
   it('the h3 element should have the class exclusive', () => {
